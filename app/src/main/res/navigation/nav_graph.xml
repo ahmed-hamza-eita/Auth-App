@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreen">
+
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.hamza.authapp.ui.SplashScreen"
+        tools:layout="@layout/splash_screen"
+        android:label="SplashScreen" >
+        <action
+            android:id="@+id/action_splashScreen_to_logoutFragment"
+            app:destination="@id/logoutFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logoutFragment"
+        tools:layout="@layout/logout_fragment"
+        android:name="com.hamza.authapp.ui.LogoutFragment"
+        android:label="LogoutFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        tools:layout="@layout/login_fragment"
+        android:name="com.hamza.authapp.ui.LoginFragment"
+        android:label="LoginFragment" />
+</navigation>
