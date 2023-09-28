@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layoutDirection="locale"
     android:layout_height="match_parent"
     android:background="@color/white">
 
@@ -9,6 +10,7 @@
         android:id="@+id/img"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
+        android:layoutDirection="locale"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_extra_large"
+        android:layoutDirection="locale"
         android:fontFamily="@font/cairo_bold"
         android:gravity="center"
         android:text="@string/login_to_continue"
@@ -47,6 +50,7 @@
         android:layout_marginStart="@dimen/spacing_small"
         android:layout_marginTop="@dimen/spacing_extra_large"
         android:layout_marginEnd="@dimen/spacing_small"
+        android:layoutDirection="locale"
         android:elevation="@dimen/radius_too_small"
         android:background="@drawable/edit_text_shape"
         android:drawableStart="@drawable/outline_email"
@@ -70,6 +74,7 @@
         android:layout_marginEnd="@dimen/spacing_small"
         android:background="@drawable/edit_text_shape"
         android:drawableStart="@drawable/password_24"
+        android:layoutDirection="locale"
         android:drawablePadding="@dimen/spacing_too_small"
         android:fontFamily="@font/cairo_semibold"
         android:hint="@string/password"
@@ -90,6 +95,7 @@
         android:layout_margin="@dimen/spacing_extra_large"
         android:textAllCaps="true"
         android:textSize="@dimen/text_small"
+        android:layoutDirection="locale"
         android:fontFamily="@font/cairo_bold"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -105,6 +111,7 @@
         android:layout_marginTop="@dimen/spacing_small"
         android:fontFamily="@font/cairo_bold"
         android:text="@string/forget_password"
+        android:layoutDirection="locale"
         android:textColor="@color/primary"
         android:textSize="@dimen/text_small"
         app:layout_constraintEnd_toEndOf="@+id/edt_password"
@@ -114,12 +121,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_medium"
+        android:layoutDirection="locale"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_login">
 
         <TextView
+            android:layoutDirection="locale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cairo_bold"
@@ -135,6 +144,7 @@
             android:fontFamily="@font/cairo_bold"
             android:text="@string/sign_up_now"
             android:textColor="@color/primary"
+            android:layoutDirection="locale"
             android:textSize="@dimen/text_small" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
