@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "311958107107",
-    "project_id": "auth-app-28552",
-    "storage_bucket": "auth-app-28552.appspot.com"
+    "project_number": "301211341822",
+    "project_id": "auth-app-f1ac8",
+    "storage_bucket": "auth-app-f1ac8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:311958107107:android:5ee2c98a1ca15bcc6c26d6",
+        "mobilesdk_app_id": "1:301211341822:android:99d99db6c40c9f2f46e6af",
         "android_client_info": {
           "package_name": "com.hamza.authapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBuwCe76W2eOgghdt98Ctj4tKpyZkCrPkE"
+          "current_key": "AIzaSyATb7NBbLARo4_Qh1iXpLkd350ZBSp8Jxw"
         }
       ],
       "services": {

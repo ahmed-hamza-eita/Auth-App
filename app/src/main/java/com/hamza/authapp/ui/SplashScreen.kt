@@ -40,17 +40,18 @@ _binding = WallpaperFragmentBinding.inflate(layoutInflater, container, false)
     }
 
     private fun startSplash() {
-
+        binding.s1.playAnimation()
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-        }, 2500)
+            isUserSignedIn()
+        }, 4000)
     }
 
     fun isUserSignedIn() {
-        if (!MySharedPreferences.getBoolean(KEY_IS_SIGNED_IN)){
-navigate(SplashScreenDirections.actionSplashScreenToLoginFragment())
-        }else{
+        if (!MySharedPreferences.getBoolean(KEY_IS_SIGNED_IN)) {
+            navigate(SplashScreenDirections.actionSplashScreenToLoginFragment())
+        } else {
             navigate(SplashScreenDirections.actionSplashScreenToLogoutFragment())
         }
     }
