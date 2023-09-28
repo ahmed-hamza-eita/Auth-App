@@ -13,5 +13,7 @@
     <string name="name">Name</string>
     <string name="sign_up">Sign up</string>
     <string name="have_an_account_already">Have an account already?</string>
+    <string name="continue_with_your_mobile_number">Continue with your mobile number</string>
+    <string name="your_mobile_number">Your mobile number</string>
 
 </resources>

@@ -71,4 +71,9 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/authWithPhoneFragment"
+        tools:layout="@layout/auth_with_phone_fragment"
+        android:name="com.hamza.authapp.ui.signup.AuthWithPhoneFragment"
+        android:label="AuthWithPhoneFragment" />
 </navigation>
