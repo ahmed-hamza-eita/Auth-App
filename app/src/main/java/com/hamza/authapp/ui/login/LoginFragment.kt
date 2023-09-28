@@ -1,9 +1,11 @@
-package com.hamza.authapp.ui;
+package com.hamza.authapp.ui.login;
 
+import LanguageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.recreate
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.LoginFragmentBinding
 import com.hamza.authapp.utils.BaseFragment
@@ -20,10 +22,8 @@ class LoginFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /*
-_binding = WallpaperFragmentBinding.inflate(layoutInflater, container, false)
-        return _binding?.root
-*/
+
+
         return inflater.inflate(R.layout.login_fragment, container, false)
 
     }
@@ -32,9 +32,34 @@ _binding = WallpaperFragmentBinding.inflate(layoutInflater, container, false)
         super.onViewCreated(view, savedInstanceState)
         _binding = LoginFragmentBinding.bind(view)
 
-
+        actions()
     }
 
+    private fun actions() {
+        binding.btnChangeLanuage.setOnClickListener {
+            changeLanguage()
+        }
+        binding.txtForgetPassword.setOnClickListener {
+            navigate(LoginFragmentDirections.actionLoginFragmentToForgetPasswordFragment())
+        }
+        binding.txtGotoSignup.setOnClickListener {
+            navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment())
+        }
+    }
+
+    private fun changeLanguage() {
+
+        val currentLocale = resources.configuration.locale
+
+        if (currentLocale.language == "ar") {
+            LanguageManager.setLocale(requireActivity(), "en")
+        } else {
+            LanguageManager.setLocale(requireActivity(), "ar")
+        }
+
+        recreate(requireActivity())
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()

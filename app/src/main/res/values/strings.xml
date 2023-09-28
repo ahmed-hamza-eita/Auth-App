@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Auth App</string>
+    <string name="login_to_continue">Welcome Back!\n Login to Continue </string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login">Log in</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="don_t_have_an_account"> Don\'t have an account?</string>
+    <string name="sign_up_now">Sign up now</string>
+    <string name="msg_send_link">don\'t worry it happened .Please enter the E-mail associated with your account.</string>
+    <string name="confirm">Confirm</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="name">Name</string>
+    <string name="sign_up">Sign up</string>
+    <string name="have_an_account_already">Have an account already?</string>
+
 </resources>

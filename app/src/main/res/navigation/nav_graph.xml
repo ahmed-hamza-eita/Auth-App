@@ -11,9 +11,17 @@
         tools:layout="@layout/splash_screen"
         android:label="SplashScreen" >
         <action
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_from_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_splashScreen_to_logoutFragment"
             app:destination="@id/logoutFragment" />
         <action
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_from_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_splashScreen_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
@@ -25,6 +33,42 @@
     <fragment
         android:id="@+id/loginFragment"
         tools:layout="@layout/login_fragment"
-        android:name="com.hamza.authapp.ui.LoginFragment"
-        android:label="LoginFragment" />
+        android:name="com.hamza.authapp.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_from_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+        <action
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_from_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_loginFragment_to_logoutFragment"
+            app:destination="@id/logoutFragment" />
+        <action
+            app:enterAnim="@anim/slide_in_from_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_from_left"
+            app:popExitAnim="@anim/slide_out_right"
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        tools:layout="@layout/forget_password_fragment"
+        android:name="com.hamza.authapp.ui.login.ForgetPasswordFragment"
+        android:label="ForgetPasswordFragment" />
+    <fragment
+        tools:layout="@layout/signup_fragment"
+        android:id="@+id/signupFragment"
+        android:name="com.hamza.authapp.ui.signup.SignupFragment"
+        android:label="SignupFragment" >
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

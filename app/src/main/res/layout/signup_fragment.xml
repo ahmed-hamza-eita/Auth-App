@@ -7,37 +7,48 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/img"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:layout_marginTop="@dimen/spacing_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_rawRes="@raw/auth" />
 
-    <ImageView
-        android:id="@+id/btn_changeLanuage"
-        android:layout_width="@dimen/_24sdp"
-        android:layout_height="@dimen/_24sdp"
-        android:layout_margin="@dimen/spacing_large"
-        android:src="@drawable/language_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/txtLoginToContiue"
+        android:id="@+id/txt_createAnAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_extra_large"
+        android:layout_margin="@dimen/spacing_medium"
         android:fontFamily="@font/cairo_bold"
-        android:gravity="center"
-        android:text="@string/login_to_continue"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/text_medium"
+        android:text="@string/create_an_account"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img" />
 
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_extra_large"
+        android:layout_marginEnd="@dimen/spacing_small"
+        android:background="@drawable/edit_text_shape"
+        android:drawableStart="@drawable/outline_person_24"
+        android:drawablePadding="@dimen/spacing_too_small"
+        android:elevation="@dimen/radius_too_small"
+        android:fontFamily="@font/cairo_semibold"
+        android:hint="@string/name"
+        android:inputType="text"
+        android:padding="@dimen/spacing_small"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_createAnAccount" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_email"
@@ -46,10 +57,10 @@
         android:layout_marginStart="@dimen/spacing_small"
         android:layout_marginTop="@dimen/spacing_extra_large"
         android:layout_marginEnd="@dimen/spacing_small"
-        android:elevation="@dimen/radius_too_small"
         android:background="@drawable/edit_text_shape"
         android:drawableStart="@drawable/outline_email"
         android:drawablePadding="@dimen/spacing_too_small"
+        android:elevation="@dimen/radius_too_small"
         android:fontFamily="@font/cairo_semibold"
         android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
@@ -57,7 +68,7 @@
         android:textSize="@dimen/text_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtLoginToContiue" />
+        app:layout_constraintTop_toBottomOf="@id/edt_name" />
 
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -70,10 +81,9 @@
         android:background="@drawable/edit_text_shape"
         android:drawableStart="@drawable/password_24"
         android:drawablePadding="@dimen/spacing_too_small"
+        android:elevation="@dimen/radius_too_small"
         android:fontFamily="@font/cairo_semibold"
         android:hint="@string/password"
-        android:elevation="@dimen/radius_too_small"
-
         android:inputType="textPassword"
         android:padding="@dimen/spacing_small"
         android:textSize="@dimen/text_small"
@@ -81,33 +91,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edt_email" />
 
-
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_extra_large"
+        android:fontFamily="@font/cairo_bold"
+        android:text="@string/sign_up"
         android:textAllCaps="true"
         android:textSize="@dimen/text_small"
-        android:fontFamily="@font/cairo_bold"
-        android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_password" />
 
-    <TextView
-        android:id="@+id/txt_forgetPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_small"
-        android:layout_marginTop="@dimen/spacing_small"
-        android:fontFamily="@font/cairo_bold"
-        android:text="@string/forget_password"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/text_small"
-        app:layout_constraintEnd_toEndOf="@+id/edt_password"
-        app:layout_constraintTop_toBottomOf="@id/edt_password" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -123,16 +120,16 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/cairo_bold"
             android:paddingEnd="@dimen/spacing_too_small"
-            android:text="@string/don_t_have_an_account"
+            android:text="@string/have_an_account_already"
             android:textSize="@dimen/text_small" />
 
 
         <TextView
-            android:id="@+id/txt_gotoSignup"
+            android:id="@+id/txt_gotoLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cairo_bold"
-            android:text="@string/sign_up_now"
+            android:text="@string/login"
             android:textColor="@color/primary"
             android:textSize="@dimen/text_small" />
     </LinearLayout>

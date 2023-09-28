@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Auth App</string>
+    <string name="login_to_continue">مرحبًا مجددًا!\n قم بتسجيل الدخول للمتابعة</string>
+    <string name="e_mail">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="forget_password">نسيت كلمة المرور؟</string>
+    <string name="don_t_have_an_account">ليس لديك حساب؟</string>
+    <string name="sign_up_now">سجل الآن</string>
+    <string name="msg_send_link">لا تقلق، حدث ذلك. يرجى إدخال البريد الإلكتروني المرتبط بحسابك.</string>
+    <string name="confirm">تأكيد</string>
+    <string name="create_an_account">إنشاء حساب</string>
+    <string name="name">الاسم</string>
+    <string name="sign_up">التسجيل</string>
+    <string name="have_an_account_already">هل لديك حساب بالفعل؟</string>
+
+</resources>
