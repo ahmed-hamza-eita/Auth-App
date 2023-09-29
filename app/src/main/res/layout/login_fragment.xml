@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layoutDirection="locale"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layoutDirection="locale">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/img"
@@ -32,9 +32,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_extra_large"
-        android:layoutDirection="locale"
         android:fontFamily="@font/cairo_bold"
         android:gravity="center"
+        android:layoutDirection="locale"
         android:text="@string/login_to_continue"
         android:textColor="@color/primary"
         android:textSize="@dimen/text_medium"
@@ -50,14 +50,14 @@
         android:layout_marginStart="@dimen/spacing_small"
         android:layout_marginTop="@dimen/spacing_extra_large"
         android:layout_marginEnd="@dimen/spacing_small"
-        android:layoutDirection="locale"
-        android:elevation="@dimen/radius_too_small"
         android:background="@drawable/edit_text_shape"
         android:drawableStart="@drawable/outline_email"
         android:drawablePadding="@dimen/spacing_too_small"
+        android:elevation="@dimen/radius_too_small"
         android:fontFamily="@font/cairo_semibold"
         android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
+        android:layoutDirection="locale"
         android:padding="@dimen/spacing_small"
         android:textSize="@dimen/text_small"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,13 +74,13 @@
         android:layout_marginEnd="@dimen/spacing_small"
         android:background="@drawable/edit_text_shape"
         android:drawableStart="@drawable/password_24"
-        android:layoutDirection="locale"
         android:drawablePadding="@dimen/spacing_too_small"
+        android:elevation="@dimen/radius_too_small"
         android:fontFamily="@font/cairo_semibold"
         android:hint="@string/password"
-        android:elevation="@dimen/radius_too_small"
-
         android:inputType="textPassword"
+
+        android:layoutDirection="locale"
         android:padding="@dimen/spacing_small"
         android:textSize="@dimen/text_small"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,12 +93,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_extra_large"
+        android:fontFamily="@font/cairo_bold"
+        android:layoutDirection="locale"
+        android:text="@string/login"
         android:textAllCaps="true"
         android:textSize="@dimen/text_small"
-        android:layoutDirection="locale"
-        android:fontFamily="@font/cairo_bold"
-        android:text="@string/login"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_password" />
@@ -107,15 +107,70 @@
         android:id="@+id/txt_forgetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_small"
         android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginEnd="@dimen/spacing_small"
         android:fontFamily="@font/cairo_bold"
-        android:text="@string/forget_password"
         android:layoutDirection="locale"
+        android:text="@string/forget_password"
         android:textColor="@color/primary"
         android:textSize="@dimen/text_small"
         app:layout_constraintEnd_toEndOf="@+id/edt_password"
         app:layout_constraintTop_toBottomOf="@id/edt_password" />
+
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="@dimen/_115sdp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_margin="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/primary"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cairo_regular"
+        android:text="@string/login_with"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintBottom_toBottomOf="@+id/view1"
+        app:layout_constraintEnd_toStartOf="@id/view12"
+        app:layout_constraintStart_toEndOf="@id/view1"
+        app:layout_constraintTop_toBottomOf="@id/view1"
+        app:layout_constraintTop_toTopOf="@id/view1" />
+
+    <View
+        android:id="@+id/view12"
+        android:layout_width="@dimen/_115sdp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_margin="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+    <ImageView
+        android:id="@+id/btn_logInWithGmail"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:src="@drawable/gmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+    <ImageView
+        android:id="@+id/btn_logInWithPhone"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginEnd="@dimen/_100sdp"
+        android:src="@drawable/phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -125,13 +180,13 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_login">
+        app:layout_constraintTop_toBottomOf="@id/btn_logInWithGmail">
 
         <TextView
-            android:layoutDirection="locale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cairo_bold"
+            android:layoutDirection="locale"
             android:paddingEnd="@dimen/spacing_too_small"
             android:text="@string/don_t_have_an_account"
             android:textSize="@dimen/text_small" />
@@ -142,9 +197,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cairo_bold"
+            android:layoutDirection="locale"
             android:text="@string/sign_up_now"
             android:textColor="@color/primary"
-            android:layoutDirection="locale"
             android:textSize="@dimen/text_small" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

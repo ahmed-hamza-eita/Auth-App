@@ -15,5 +15,7 @@
     <string name="have_an_account_already">Have an account already?</string>
     <string name="continue_with_your_mobile_number">Continue with your mobile number</string>
     <string name="your_mobile_number">Your mobile number</string>
+    <string name="login_with">Login with</string>
+    <string name="sign_up_with">Sign up with</string>
 
 </resources>

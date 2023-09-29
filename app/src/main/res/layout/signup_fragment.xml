@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@id/edt_email" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_extra_large"
@@ -101,20 +101,73 @@
         android:text="@string/sign_up"
         android:textAllCaps="true"
         android:textSize="@dimen/text_small"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_password" />
 
+    <View
+        android:id="@+id/view1"
+        android:layout_width="@dimen/_115sdp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_margin="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="@color/primary"
 
-    <LinearLayout
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_signup" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cairo_regular"
+        android:text="@string/sign_up_with"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/text_small"
+        android:layout_margin="@dimen/spacing_small"
+        app:layout_constraintBottom_toBottomOf="@+id/view1"
+        app:layout_constraintEnd_toStartOf="@id/view12"
+        app:layout_constraintStart_toEndOf="@id/view1"
+        app:layout_constraintTop_toBottomOf="@id/view1"
+        app:layout_constraintTop_toTopOf="@id/view1" />
+
+    <View
+        android:id="@+id/view12"
+        android:layout_width="@dimen/_115sdp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_margin="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_signup" />
+
+    <ImageView
+        android:id="@+id/btn_signupWithGmail"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/gmail"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginStart="@dimen/_100sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+    <ImageView
+        android:id="@+id/btn_signupWithPhone"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/phone"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginEnd="@dimen/_100sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_medium"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_login">
+        app:layout_constraintTop_toBottomOf="@id/btn_signupWithGmail">
 
         <TextView
             android:layout_width="wrap_content"
