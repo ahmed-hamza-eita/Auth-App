@@ -4,9 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.LogoutFragmentBinding
+import com.hamza.authapp.ui.AuthViewModel
+import com.hamza.authapp.ui.login.LoginFragmentDirections
 import com.hamza.authapp.utils.BaseFragment
+import com.hamza.authapp.utils.Const
+import com.hamza.authapp.utils.Const.Companion.LOGOUT
+import com.hamza.authapp.utils.MySharedPreferences
+import com.hamza.itiproject.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -16,15 +24,14 @@ class LogoutFragment : BaseFragment() {
     private var _binding: LogoutFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        /*
-_binding = WallpaperFragmentBinding.inflate(layoutInflater, container, false)
-        return _binding?.root
-*/
+
+
         return inflater.inflate(R.layout.logout_fragment, container, false)
 
     }
@@ -33,10 +40,23 @@ _binding = WallpaperFragmentBinding.inflate(layoutInflater, container, false)
         super.onViewCreated(view, savedInstanceState)
         _binding = LogoutFragmentBinding.bind(view)
 
-        binding.checkedDone.playAnimation()
+       actions()
+
 
 
     }
+
+    private fun actions() {
+        binding.btnLogout.setOnClickListener {
+            viewModel.logout()
+            showToast(LOGOUT)
+            navigate(LoginFragmentDirections.actionLoginFragmentToLogoutFragment())
+            MySharedPreferences.clear()
+        }
+    }
+
+
+
 
 
     override fun onDestroy() {

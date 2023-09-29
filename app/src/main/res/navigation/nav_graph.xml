@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_signupFragment_to_authWithPhoneFragment"
             app:destination="@id/authWithPhoneFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_logoutFragment"
+            app:destination="@id/logoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/authWithPhoneFragment"

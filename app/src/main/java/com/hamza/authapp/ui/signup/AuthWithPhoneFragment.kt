@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.AuthWithPhoneFragmentBinding
+import com.hamza.authapp.ui.AuthViewModel
 import com.hamza.authapp.utils.BaseFragment
 import com.hamza.authapp.utils.MySharedPreferences
 
@@ -15,6 +17,7 @@ class AuthWithPhoneFragment : BaseFragment() {
     private var _binding: AuthWithPhoneFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

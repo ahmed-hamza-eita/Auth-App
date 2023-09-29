@@ -29,16 +29,19 @@ object MySharedPreferences {
         return getSharedPreferences().getString(USER_EMAIL, "")!!
 
     }
+
     fun setUserPhone(phone: String) {
 
         val editor = getSharedPreferences().edit()
         editor.putString(USER_PHONE, phone).apply()
 
     }
+
     fun getUserPhone(): String {
         return getSharedPreferences().getString(USER_PHONE, "")!!
 
     }
+
     fun putBoolean(key: String?, value: Boolean) {
         val editor = getSharedPreferences().edit()
         editor.putBoolean(key, value)
@@ -54,6 +57,8 @@ object MySharedPreferences {
         editor.clear()
         editor.apply()
         setUserEmail("")
+        setUserPhone("")
+        putBoolean(Const.KEY_IS_SIGNED_IN, false)
 
     }
 

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.ForgetPasswordFragmentBinding
+import com.hamza.authapp.ui.AuthViewModel
 import com.hamza.authapp.utils.BaseFragment
 
 
@@ -14,6 +16,7 @@ class ForgetPasswordFragment : BaseFragment() {
     private var _binding: ForgetPasswordFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
