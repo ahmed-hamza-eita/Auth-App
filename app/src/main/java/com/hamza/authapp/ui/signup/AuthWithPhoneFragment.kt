@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.AuthWithPhoneFragmentBinding
 import com.hamza.authapp.utils.BaseFragment
+import com.hamza.authapp.utils.MySharedPreferences
 
 
 class AuthWithPhoneFragment : BaseFragment() {
@@ -31,11 +32,17 @@ _binding = WallpaperFragmentBinding.inflate(layoutInflater, container, false)
         super.onViewCreated(view, savedInstanceState)
         _binding = AuthWithPhoneFragmentBinding.bind(view)
 
-actions()
+        actions()
     }
 
     private fun actions() {
-        TODO("Not yet implemented")
+        val mobileNumber = binding.edtMobileNumber.text?.trim().toString()
+        if (mobileNumber.isEmpty()) {
+            binding.edtMobileNumber.error = getString(R.string.requried)
+        } else {
+            MySharedPreferences.setUserPhone(mobileNumber)
+            navigate(AuthWithPhoneFragmentDirections.actionAuthWithPhoneFragmentToOtpFragment())
+        }
     }
 
 

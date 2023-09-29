@@ -45,6 +45,9 @@ class LoginFragment : BaseFragment() {
         binding.txtGotoSignup.setOnClickListener {
             navigate(LoginFragmentDirections.actionLoginFragmentToSignupFragment())
         }
+        binding.btnLogInWithPhone.setOnClickListener {
+            navigate(LoginFragmentDirections.actionLoginFragmentToAuthWithPhoneFragment())
+        }
     }
 
     private fun changeLanguage() {

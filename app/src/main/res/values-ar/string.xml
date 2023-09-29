@@ -15,5 +15,12 @@
     <string name="name">الاسم</string>
     <string name="sign_up">التسجيل</string>
     <string name="have_an_account_already">هل لديك حساب بالفعل؟</string>
+    <string name="continue_with_your_mobile_number">المتابعة باستخدام رقم هاتفك المحمول</string>
+    <string name="your_mobile_number">رقم هاتفك المحمول</string>
+    <string name="login_with">تسجيل الدخول باستخدام</string>
+    <string name="sign_up_with">التسجيل باستخدام</string>
+    <string name="enter_otp_code">أدخل رمز OTP</string>
+    <string name="otp_code">رمز OTP</string>
+    <string name="requried">مطلوب</string>
 
 </resources>

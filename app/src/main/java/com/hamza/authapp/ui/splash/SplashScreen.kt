@@ -1,4 +1,4 @@
-package com.hamza.authapp.ui;
+package com.hamza.authapp.ui.splash;
 
 import android.os.Bundle
 import android.view.LayoutInflater

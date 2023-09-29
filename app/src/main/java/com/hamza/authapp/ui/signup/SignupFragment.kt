@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.SignupFragmentBinding
+import com.hamza.authapp.ui.login.LoginFragmentDirections
 import com.hamza.authapp.utils.BaseFragment
 
 
@@ -35,6 +36,10 @@ class SignupFragment : BaseFragment() {
         binding.txtGotoLogin.setOnClickListener {
             navigate(SignupFragmentDirections.actionSignupFragmentToLoginFragment())
         }
+        binding.btnSignupWithPhone.setOnClickListener {
+            navigate(LoginFragmentDirections.actionLoginFragmentToAuthWithPhoneFragment())
+        }
+
     }
 
 
