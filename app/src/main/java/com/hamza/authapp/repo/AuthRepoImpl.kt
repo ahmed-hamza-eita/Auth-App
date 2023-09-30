@@ -6,14 +6,16 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.hamza.authapp.utils.Const
-import com.hamza.authapp.utils.Const.Companion.RESET_PASSWORD
+import com.google.firebase.database.DatabaseReference
+import com.hamza.authapp.utils.MySharedPreferences
 import com.hamza.authapp.utils.NetworkState
 import com.hamza.authapp.utils.await
 import javax.inject.Inject
 
-class AuthRepoImpl @Inject constructor(private val auth: FirebaseAuth) : AuthRepo {
+class AuthRepoImpl @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val ref: DatabaseReference
+) : AuthRepo {
     override val currentUser: FirebaseUser?
         get() = auth.currentUser
 
@@ -43,6 +45,13 @@ class AuthRepoImpl @Inject constructor(private val auth: FirebaseAuth) : AuthRep
             result?.user?.updateProfile(
                 UserProfileChangeRequest.Builder().setDisplayName(name).build()
             )?.await()
+
+            MySharedPreferences.apply {
+                setUserEmail(currentUser?.email!!)
+                setUserName(currentUser?.displayName!!)
+                setUserId(currentUser?.uid!!)
+            }
+
             NetworkState.Success(result.user!!)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -54,7 +63,7 @@ class AuthRepoImpl @Inject constructor(private val auth: FirebaseAuth) : AuthRep
         return try {
             NetworkState.Loading
             val result = auth.sendPasswordResetEmail(email).await()
-            NetworkState.Loading
+            NetworkState.VoidData
         } catch (e: Exception) {
             e.printStackTrace()
             NetworkState.Failure(e)
@@ -83,6 +92,8 @@ class AuthRepoImpl @Inject constructor(private val auth: FirebaseAuth) : AuthRep
             NetworkState.Failure(e)
         }
     }
+
+
 
     override fun logout() {
         auth.signOut()

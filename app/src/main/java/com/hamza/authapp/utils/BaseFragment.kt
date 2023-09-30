@@ -9,9 +9,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.hamza.authapp.R
+import com.sanctionco.jmail.JMail
 
 
-open class BaseFragment : Fragment() {
+  open class BaseFragment : Fragment() {
 
     var myContext: Context? = null
     var myView: View? = null
@@ -36,6 +38,8 @@ open class BaseFragment : Fragment() {
     protected fun navigate(navDirections: Int, bundle: Bundle) {
         findNavController().navigate(navDirections, bundle)
     }
+
+
 
 
 }

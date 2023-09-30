@@ -50,7 +50,7 @@ class LogoutFragment : BaseFragment() {
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
             showToast(LOGOUT)
-            navigate(LoginFragmentDirections.actionLoginFragmentToLogoutFragment())
+            navigate(LogoutFragmentDirections.actionLogoutFragmentToLoginFragment())
             MySharedPreferences.clear()
         }
     }

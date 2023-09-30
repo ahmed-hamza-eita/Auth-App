@@ -1,23 +1,30 @@
 package com.hamza.authapp.ui.signup;
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.SignupFragmentBinding
 import com.hamza.authapp.ui.AuthViewModel
 import com.hamza.authapp.ui.login.LoginFragmentDirections
 import com.hamza.authapp.utils.BaseFragment
 import com.hamza.authapp.utils.Const
+import com.hamza.authapp.utils.Const.Companion.GOOGLE_ACCOUNT_REQUEST
 import com.hamza.authapp.utils.Const.Companion.SIGNUP_SUCCESS
 import com.hamza.authapp.utils.MySharedPreferences
 import com.hamza.authapp.utils.NetworkState
 import com.hamza.authapp.utils.ProgressLoading
 import com.hamza.itiproject.utils.showToast
+import com.sanctionco.jmail.JMail
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignupFragment : BaseFragment() {
@@ -26,6 +33,9 @@ class SignupFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AuthViewModel by viewModels()
+
+    @Inject
+    lateinit var signInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,13 +71,13 @@ class SignupFragment : BaseFragment() {
                     is NetworkState.Success -> {
                         ProgressLoading.dismiss()
                         showToast(SIGNUP_SUCCESS)
-                        MySharedPreferences.putBoolean(Const.KEY_IS_SIGNED_IN,true)
+                        MySharedPreferences.putBoolean(Const.KEY_IS_SIGNED_IN, true)
                         navigate(SignupFragmentDirections.actionSignupFragmentToLogoutFragment())
                     }
 
 
                     else -> {
-                        showToast("Done")
+
                     }
                 }
             }
@@ -80,27 +90,33 @@ class SignupFragment : BaseFragment() {
             txtGotoLogin.setOnClickListener {
                 navigate(SignupFragmentDirections.actionSignupFragmentToLoginFragment())
             }
-            btnSignupWithPhone.setOnClickListener {
-                navigate(LoginFragmentDirections.actionLoginFragmentToAuthWithPhoneFragment())
-            }
+
             btnSignup.setOnClickListener {
                 checkUser()
             }
+
         }
     }
-
-    private fun checkUser() {
+     private fun checkUser() {
         binding.apply {
             val email = edtEmail.text.toString()
             val password = edtPassword.text.toString()
             val name = edtName.text.toString()
-            if (email.isEmpty() || password.isEmpty() || name.isEmpty()) {
+            if (email.isEmpty()) {
                 edtEmail.error = getString(R.string.requried)
+            } else if (password.isEmpty()) {
+                edtPassword.error = getString(R.string.requried)
+            } else if (name.isEmpty()) {
+                edtName.error = getString(R.string.requried)
+            } else if (JMail.isInvalid(email)) {
+                edtEmail.error = getString(R.string.invalid)
             } else {
                 viewModel.signUpWithEmailAndPassword(name, email, password)
             }
         }
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

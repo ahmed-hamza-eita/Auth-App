@@ -1,6 +1,7 @@
 package com.hamza.authapp.ui.login;
 
 import LanguageManager
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +9,22 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.LoginFragmentBinding
 import com.hamza.authapp.ui.AuthViewModel
 import com.hamza.authapp.utils.BaseFragment
 import com.hamza.authapp.utils.Const
+import com.hamza.authapp.utils.Const.Companion.GOOGLE_ACCOUNT_REQUEST
 import com.hamza.authapp.utils.MySharedPreferences
 import com.hamza.authapp.utils.NetworkState
 import com.hamza.authapp.utils.ProgressLoading
 import com.hamza.itiproject.utils.showToast
+import com.sanctionco.jmail.JMail
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment() {
@@ -27,6 +33,8 @@ class LoginFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val viewModel: AuthViewModel by viewModels()
 
+    @Inject
+    lateinit var signInClient: GoogleSignInClient
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,20 +70,54 @@ class LoginFragment : BaseFragment() {
                     is NetworkState.Success -> {
                         ProgressLoading.dismiss()
                         showToast(Const.SIGNUP_SUCCESS)
-                        MySharedPreferences.putBoolean(Const.KEY_IS_SIGNED_IN,true)
+                        MySharedPreferences.putBoolean(Const.KEY_IS_SIGNED_IN, true)
                         navigate(LoginFragmentDirections.actionLoginFragmentToLogoutFragment())
                     }
 
 
                     else -> {
-                        showToast("Done")
+
                     }
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.signupWithGmailFlow.collect {
+                when (it) {
+                    is NetworkState.Loading -> {
+                        ProgressLoading.show(requireActivity())
+                    }
+
+                    is NetworkState.Success -> {
+                        ProgressLoading.dismiss()
+                        showToast(Const.SIGNUP_SUCCESS_WITH_GOOGLE)
+                        navigate(LoginFragmentDirections.actionLoginFragmentToLogoutFragment())
+                    }
+
+                    is NetworkState.Failure -> {
+                        ProgressLoading.dismiss()
+                        showToast(it.exception.message)
+                    }
+
+                    else -> {}
                 }
             }
         }
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Const.GOOGLE_ACCOUNT_REQUEST) {
+            val account = GoogleSignIn.getSignedInAccountFromIntent(data).result
+            account?.let {
+                viewModel.signUpWithGoogle(it)
+            }
+        } else {
+            showToast("Request Failed")
+        }
+    }
 
     private fun actions() {
         binding.apply {
@@ -94,6 +136,17 @@ class LoginFragment : BaseFragment() {
             btnLogin.setOnClickListener {
                 checkUser()
             }
+            btnLogInWithGmail.setOnClickListener {
+                signInClient.signInIntent.also {
+                    startActivityForResult(
+                        it,
+                        GOOGLE_ACCOUNT_REQUEST
+                    )
+                }
+            }
+            btnLogin.setOnClickListener{
+                navigate(LoginFragmentDirections.actionLoginFragmentToAuthWithPhoneFragment())
+            }
         }
 
     }
@@ -102,15 +155,19 @@ class LoginFragment : BaseFragment() {
         binding.apply {
             val email = edtEmail.text.toString()
             val password = edtPassword.text.toString()
+
             if (email.isEmpty()) {
                 edtEmail.error = getString(R.string.requried)
             } else if (password.isEmpty()) {
                 edtPassword.error = getString(R.string.requried)
+            } else if (JMail.isInvalid(email)) {
+                edtEmail.error = getString(R.string.invalid)
             } else {
                 viewModel.login(email, password)
             }
         }
     }
+
 
     private fun changeLanguage() {
 

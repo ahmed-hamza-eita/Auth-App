@@ -20,6 +20,8 @@
     <string name="enter_otp_code">Enter OTP Code</string>
     <string name="otp_code">OTP Code</string>
     <string name="requried">Required</string>
+    <string name="invalid">Invalid E-mail</string>
+    <string name="invalidMobile">Invalid Mobile Number</string>
 
 
 </resources>

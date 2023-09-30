@@ -12,5 +12,6 @@ sealed class NetworkState<out R> {
     data class Success<out R>(val result: R) : NetworkState<R>()
     data class Failure(val exception: Exception) : NetworkState<Nothing>()
     object Loading : NetworkState<Nothing>()
+    object VoidData : NetworkState<Nothing>()
 
 }

@@ -22,5 +22,8 @@
     <string name="enter_otp_code">أدخل رمز OTP</string>
     <string name="otp_code">رمز OTP</string>
     <string name="requried">مطلوب</string>
+    <string name="invalid">بريد إلكتروني غير صالح</string>
+    <string name="invalidMobile">رقم هاتف غير صالح</string>
+
 
 </resources>

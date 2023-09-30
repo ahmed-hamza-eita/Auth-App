@@ -8,6 +8,8 @@ object MySharedPreferences {
     private const val SHARED_PREFERENCES_NAME = "sharedPreferences"
     private const val USER_EMAIL = "user email"
     private const val USER_PHONE = "user phone"
+    private const val USER_NAME = "user name"
+    private const val USER_ID = "user id"
 
     fun init(context: Context) {
         mContext = context
@@ -41,6 +43,31 @@ object MySharedPreferences {
         return getSharedPreferences().getString(USER_PHONE, "")!!
 
     }
+
+
+    fun setUserName(name: String) {
+
+        val editor = getSharedPreferences().edit()
+        editor.putString(USER_NAME, name).apply()
+
+    }
+
+    fun getUserName(): String {
+        return getSharedPreferences().getString(USER_NAME, "")!!
+
+    }
+    fun setUserId(id: String) {
+
+        val editor = getSharedPreferences().edit()
+        editor.putString(USER_ID, id).apply()
+
+    }
+
+    fun getUserId(): String {
+        return getSharedPreferences().getString(USER_ID, "")!!
+
+    }
+
 
     fun putBoolean(key: String?, value: Boolean) {
         val editor = getSharedPreferences().edit()

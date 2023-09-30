@@ -29,7 +29,11 @@
         android:id="@+id/logoutFragment"
         android:name="com.hamza.authapp.ui.logout.LogoutFragment"
         android:label="LogoutFragment"
-        tools:layout="@layout/logout_fragment" />
+        tools:layout="@layout/logout_fragment" >
+        <action
+            android:id="@+id/action_logoutFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.hamza.authapp.ui.login.LoginFragment"
@@ -93,5 +97,9 @@
         android:id="@+id/otpFragment"
         android:name="com.hamza.authapp.ui.signup.OtpFragment"
         android:label="OtpFragment"
-        tools:layout="@layout/otp_fragment" />
+        tools:layout="@layout/otp_fragment" >
+        <argument
+            android:name="mobileNumber"
+            app:argType="string" />
+    </fragment>
 </navigation>

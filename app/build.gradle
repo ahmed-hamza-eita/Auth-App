@@ -111,7 +111,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-
+    //validate email
+    implementation 'com.sanctionco.jmail:jmail:1.6.0'
 
 }
 kapt {
