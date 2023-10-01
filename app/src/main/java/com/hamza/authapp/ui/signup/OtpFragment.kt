@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -19,6 +22,8 @@ import com.hamza.authapp.utils.MySharedPreferences
 import com.hamza.authapp.utils.NetworkState
 import com.hamza.authapp.utils.ProgressLoading
 import com.hamza.itiproject.utils.showToast
+import com.hamza.itiproject.utils.visibilityGone
+import com.hamza.itiproject.utils.visibilityVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import java.util.concurrent.TimeUnit
@@ -49,9 +54,83 @@ class OtpFragment : BaseFragment() {
         _binding = OtpFragmentBinding.bind(view)
         mobileNumber = OtpFragmentArgs.fromBundle(requireArguments()).mobileNumber
         verificationId = OtpFragmentArgs.fromBundle(requireArguments()).verificationId
-        showToast("Your mobile number is $mobileNumber and verification $verificationId")
+        showToast("Your mobile number is $mobileNumber")
         actions()
         observer()
+    }
+
+
+    private fun actions() {
+        binding.apply {
+            btnConfirm.setOnClickListener {
+
+                check()
+            }
+            txtResendotp.setOnClickListener {
+                resentOtp()
+            }
+        }
+    }
+
+    private fun resentOtp() {
+        val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
+
+            }
+
+            override fun onVerificationFailed(e: FirebaseException) {
+
+                e.printStackTrace()
+
+                showToast(e.message)
+            }
+
+            override fun onCodeSent(
+                newVerificationId: String,
+                forceResendingToken: PhoneAuthProvider.ForceResendingToken
+            ) {
+                verificationId = newVerificationId
+                ProgressLoading.dismiss()
+                binding.btnConfirm.visibilityVisible()
+                showToast(getString(R.string.otp_sent))
+            }
+        }
+
+
+        ProgressLoading.show(requireActivity())
+        binding.btnConfirm.visibilityGone()
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+            "+2$mobileNumber", 60L, TimeUnit.SECONDS,
+            requireActivity(), callbacks
+        )
+    }
+
+
+    private fun check() {
+        val otpCode = binding.edtOtpCode.text.trim().toString()
+        if (otpCode.isEmpty()) {
+            binding.edtOtpCode.error = getString(R.string.requried)
+        } else {
+            if (verificationId != null) {
+                ProgressLoading.show(requireActivity())
+                binding.btnConfirm.visibilityGone()
+                val credential = PhoneAuthProvider.getCredential(verificationId, otpCode)
+                FirebaseAuth.getInstance().signInWithCredential(credential)
+                    .addOnCompleteListener { task ->
+                        ProgressLoading.dismiss()
+                        binding.btnConfirm.visibilityVisible()
+                        if (task.isSuccessful) {
+                            navigate(OtpFragmentDirections.actionOtpFragmentToLogoutFragment())
+                        } else {
+
+                            showToast(getString(R.string.invalid_otp))
+                        }
+                    }
+
+
+            }
+
+        }
     }
 
     private fun observer() {
@@ -80,25 +159,6 @@ class OtpFragment : BaseFragment() {
             }
         }
     }
-
-
-    private fun actions() {
-        binding.btnConfirm.setOnClickListener {
-
-            check()
-        }
-    }
-
-    private fun check() {
-        val otpCode = binding.edtOtpCode.text.trim().toString()
-        if (otpCode.isEmpty()) {
-            binding.edtOtpCode.error = getString(R.string.requried)
-        } else {
-
-            viewModel.verifySmsCode(otpCode)
-        }
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()

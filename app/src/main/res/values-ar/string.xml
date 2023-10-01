@@ -24,6 +24,10 @@
     <string name="requried">مطلوب</string>
     <string name="invalid">بريد إلكتروني غير صالح</string>
     <string name="invalidMobile">رقم هاتف غير صالح</string>
-
+    <string name="invalid_otp">كود OTP غير صالح</string>
+    <string name="didn_t_receive_the_otp">لم تستلم الرمز؟</string>
+    <string name="resend_otp">إعادة إرسال الرمز</string>
+    <string name="otp_sent">تم إرسال الرمز</string>
 
 </resources>
+

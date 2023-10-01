@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -95,26 +98,41 @@ class AuthViewModel @Inject constructor(
         }
 
     val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        override fun onVerificationCompleted(credential: PhoneAuthCredential) = Unit
+
+        override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+            // This callback will be invoked in two situations:
+            // 1 - Instant verification. In some cases the phone number can be instantly
+            //     verified without needing to send or enter a verification code.
+            // 2 - Auto-retrieval. On some devices Google Play services can automatically
+            //     detect the incoming verification SMS and perform verification without
+            //     user action.
+            signUpWithPhone(credential)
+        }
+
         override fun onVerificationFailed(e: FirebaseException) {
             e.printStackTrace()
             NetworkState.Failure(e)
-            _code.value = NetworkState.Failure(e)
-        }
 
+
+        }
 
         override fun onCodeSent(
             verificationId: String,
-            token: PhoneAuthProvider.ForceResendingToken
+            token: PhoneAuthProvider.ForceResendingToken,
         ) {
+            // The SMS verification code has been sent to the provided phone number, we
+            // now need to ask the user to enter the code and then construct a credential
+            // by combining the code with a verification ID.
+
+
+            // Save verification ID and resending token so we can use them later
             storedVerificationId = verificationId
             resendToken = token
-            NetworkState.Success(storedVerificationId)
-            _code.value = NetworkState.Success(storedVerificationId!!)
+            NetworkState.Success(verificationId)
         }
     }
 
-     fun verifySmsCode(
+    fun verifySmsCode(
         smsCode: String
     ): NetworkState<String> {
 
