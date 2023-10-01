@@ -40,8 +40,8 @@ class LogoutFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding = LogoutFragmentBinding.bind(view)
 
-       actions()
-
+        actions()
+        showToast(viewModel.currentUser?.email)
 
 
     }
@@ -54,9 +54,6 @@ class LogoutFragment : BaseFragment() {
             MySharedPreferences.clear()
         }
     }
-
-
-
 
 
     override fun onDestroy() {

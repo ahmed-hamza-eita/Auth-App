@@ -10,7 +10,10 @@ import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.LoginFragmentBinding
 import com.hamza.authapp.ui.AuthViewModel
@@ -107,17 +110,6 @@ class LoginFragment : BaseFragment() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Const.GOOGLE_ACCOUNT_REQUEST) {
-            val account = GoogleSignIn.getSignedInAccountFromIntent(data).result
-            account?.let {
-                viewModel.signUpWithGoogle(it)
-            }
-        } else {
-            showToast("Request Failed")
-        }
-    }
 
     private fun actions() {
         binding.apply {
@@ -144,11 +136,25 @@ class LoginFragment : BaseFragment() {
                     )
                 }
             }
-            btnLogin.setOnClickListener{
+            btnLogin.setOnClickListener {
                 navigate(LoginFragmentDirections.actionLoginFragmentToAuthWithPhoneFragment())
             }
         }
 
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GOOGLE_ACCOUNT_REQUEST) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                viewModel.signUpWithGoogle(account)
+            } catch (e: ApiException) {
+                showToast(e.message.toString())
+            }
+        } else {
+            showToast("Request Failed")
+        }
     }
 
     private fun checkUser() {

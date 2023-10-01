@@ -88,6 +88,7 @@ class AuthViewModel @Inject constructor(
             _signupWithGmailFlow.value = NetworkState.Loading
             val result = repo.signupWithGoogleAccount(email)
             _signupWithGmailFlow.value = result
+
         }
 
     fun signUpWithPhone(phone: PhoneAuthCredential) =

@@ -12,8 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.hamza.authapp.repo.AuthRepo
 import com.hamza.authapp.repo.AuthRepoImpl
 import com.hamza.authapp.utils.Const
-import com.hamza.authapp.utils.Const.Companion.CLIENT_ID
-import com.hamza.authapp.utils.Const.Companion.DEFAULT_WEB_CLIENT_ID
+ import com.hamza.authapp.utils.Const.Companion.DEFAULT_WEB_CLIENT_ID
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +47,7 @@ class Module {
             .requestIdToken(DEFAULT_WEB_CLIENT_ID)
             .requestEmail()
             .build()
+
     }
 
     @Singleton
