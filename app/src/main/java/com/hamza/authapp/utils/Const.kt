@@ -12,8 +12,8 @@ class Const {
         const val SIGNUP_SUCCESS = "SignUp success"
         const val SIGNUP_SUCCESS_WITH_PHONE = "SignUp  with mobile number success"
         const val LOGOUT = "Signed out"
-        val MOBILE_NO_PATTERN =Pattern.compile("^((\\+92)?(0092)?(92)?(0)?)(3)([0-9]{2})((-?)|( ?))([0-9]{7})")
-        const val GOOGLE_ACCOUNT_REQUEST = 10
+        const val CHECK_EMAIL = "Check your email address"
+         const val GOOGLE_ACCOUNT_REQUEST = 10
         const val DEFAULT_WEB_CLIENT_ID =
             "301211341822-if3ra09a1upimea834vq73qu4gjfl2nl.apps.googleusercontent.com"
     }

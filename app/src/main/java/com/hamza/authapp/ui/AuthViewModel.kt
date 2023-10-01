@@ -27,8 +27,8 @@ class AuthViewModel @Inject constructor(
     private val auth: FirebaseAuth
 ) : ViewModel() {
 
-    private var verificationId: String? = null
-
+    var storedVerificationId: String? = null
+    lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private val _loginFlow = MutableStateFlow<NetworkState<FirebaseUser>?>(null)
     val loginFlow get() = _loginFlow
 
@@ -45,7 +45,16 @@ class AuthViewModel @Inject constructor(
     val signupWithPhoneFlow get() = _signupWithPhoneFlow
 
 
-    private val _resetPassword = MutableStateFlow<NetworkState<FirebaseUser>?>(null)
+    private val _code =
+        MutableStateFlow<NetworkState<String>?>(null)
+    val code get() = _code
+
+
+    private val _verifySmsCode =
+        MutableStateFlow<NetworkState<String>?>(null)
+    val verifySmsCode get() = _verifySmsCode
+
+    private val _resetPassword = MutableStateFlow<NetworkState<String>?>(null)
     val resetPassword get() = _resetPassword
 
     val currentUser: FirebaseUser? get() = repo.currentUser
@@ -90,25 +99,48 @@ class AuthViewModel @Inject constructor(
         override fun onVerificationFailed(e: FirebaseException) {
             e.printStackTrace()
             NetworkState.Failure(e)
+            _code.value = NetworkState.Failure(e)
         }
 
 
-    override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-         NetworkState.Success(verificationId)
+        override fun onCodeSent(
+            verificationId: String,
+            token: PhoneAuthProvider.ForceResendingToken
+        ) {
+            storedVerificationId = verificationId
+            resendToken = token
+            NetworkState.Success(storedVerificationId)
+            _code.value = NetworkState.Success(storedVerificationId!!)
+        }
     }
-}
 
-fun resetPassword(email: String) = viewModelScope.launch {
-    NetworkState.Loading
-    val result = repo.resetPassword(email)
-    _resetPassword.value = result
-}
+     fun verifySmsCode(
+        smsCode: String
+    ): NetworkState<String> {
 
-fun logout() {
-    repo.logout()
-    _loginFlow.value = null
-    _signupWithEmailFlow.value = null
-    _signupWithGmailFlow.value = null
-    _signupWithPhoneFlow.value = null
-}
+        return try {
+            NetworkState.Loading
+            val credential: PhoneAuthCredential =
+                PhoneAuthProvider.getCredential(storedVerificationId!!, smsCode)
+            val result = signUpWithPhone(credential)
+            NetworkState.Success(result.toString())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            NetworkState.Failure(e)
+        }
+    }
+
+    fun resetPasswordFun(email: String) = viewModelScope.launch {
+        NetworkState.Loading
+        val result = repo.resetPassword(email)
+        _resetPassword.value = result
+    }
+
+    fun logout() {
+        repo.logout()
+        _loginFlow.value = null
+        _signupWithEmailFlow.value = null
+        _signupWithGmailFlow.value = null
+        _signupWithPhoneFlow.value = null
+    }
 }

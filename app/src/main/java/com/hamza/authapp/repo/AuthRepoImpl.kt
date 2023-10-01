@@ -1,12 +1,15 @@
 package com.hamza.authapp.repo
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
+import com.hamza.authapp.utils.Const
 import com.hamza.authapp.utils.MySharedPreferences
 import com.hamza.authapp.utils.NetworkState
 import com.hamza.authapp.utils.await
@@ -59,11 +62,11 @@ class AuthRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun resetPassword(email: String): NetworkState<FirebaseUser> {
+    override suspend fun resetPassword(email: String): NetworkState<String> {
         return try {
             NetworkState.Loading
-            val result = auth.sendPasswordResetEmail(email).await()
-            NetworkState.VoidData
+              auth.sendPasswordResetEmail(email).await()
+            NetworkState.Success(Const.CHECK_EMAIL)
         } catch (e: Exception) {
             e.printStackTrace()
             NetworkState.Failure(e)
@@ -92,7 +95,6 @@ class AuthRepoImpl @Inject constructor(
             NetworkState.Failure(e)
         }
     }
-
 
 
     override fun logout() {

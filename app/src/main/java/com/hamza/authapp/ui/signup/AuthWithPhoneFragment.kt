@@ -55,7 +55,7 @@ class AuthWithPhoneFragment : BaseFragment() {
 
     private fun observer() {
         lifecycleScope.launchWhenStarted {
-            viewModel.signupWithPhoneFlow.collect {
+            viewModel.code.collect {
                 when (it) {
                     is NetworkState.Loading -> {
                         ProgressLoading.show(requireActivity())
@@ -63,10 +63,10 @@ class AuthWithPhoneFragment : BaseFragment() {
 
                     is NetworkState.Success -> {
                         ProgressLoading.dismiss()
-                        showToast(Const.SIGNUP_SUCCESS_WITH_PHONE)
+                       // showToast(Const.SIGNUP_SUCCESS_WITH_PHONE)
                         navigate(
                             AuthWithPhoneFragmentDirections.actionAuthWithPhoneFragmentToOtpFragment(
-                                mobileNumber
+                                mobileNumber, it.toString()
                             )
                         )
                     }
