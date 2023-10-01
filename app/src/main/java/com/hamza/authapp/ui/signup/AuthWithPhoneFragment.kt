@@ -36,7 +36,7 @@ class AuthWithPhoneFragment : BaseFragment() {
     private var _binding: AuthWithPhoneFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AuthViewModel by viewModels()
+
     private var mobileNumber = ""
 
     @Inject
@@ -112,44 +112,9 @@ class AuthWithPhoneFragment : BaseFragment() {
         )
     }
 
-    private fun sendVerifactionCode(phoneNumber: String) {
-        val options = PhoneAuthOptions.newBuilder(auth).setPhoneNumber("+2${phoneNumber}")
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(requireActivity())
-            .setCallbacks(viewModel.callbacks)
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
-    }
 
-    private fun observer() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.code.collect {
-                when (it) {
-                    is NetworkState.Loading -> {
-                        ProgressLoading.show(requireActivity())
-                    }
 
-                    is NetworkState.Success -> {
-                        ProgressLoading.dismiss()
-                        binding.btnConfirm.visibility
-                        navigate(
-                            AuthWithPhoneFragmentDirections.actionAuthWithPhoneFragmentToOtpFragment(
-                                mobileNumber, viewModel.storedVerificationId!!
-                            )
-                        )
-                    }
 
-                    is NetworkState.Failure -> {
-                        ProgressLoading.dismiss()
-                        showToast(it.exception.message)
-                    }
-
-                    else -> {}
-                }
-            }
-        }
-
-    }
 
     override fun onDestroy() {
         super.onDestroy()

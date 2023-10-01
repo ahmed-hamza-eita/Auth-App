@@ -36,7 +36,7 @@ class OtpFragment : BaseFragment() {
     private val binding get() = _binding!!
     var mobileNumber = "0"
     var verificationId = "0"
-    private val viewModel: AuthViewModel by viewModels()
+
 
     @Inject
     lateinit var auth: FirebaseAuth
@@ -56,7 +56,7 @@ class OtpFragment : BaseFragment() {
         verificationId = OtpFragmentArgs.fromBundle(requireArguments()).verificationId
         showToast("Your mobile number is $mobileNumber")
         actions()
-        observer()
+
     }
 
 
@@ -133,32 +133,6 @@ class OtpFragment : BaseFragment() {
         }
     }
 
-    private fun observer() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.verifySmsCode.collect {
-                when (it) {
-                    is NetworkState.Loading -> {
-                        ProgressLoading.show(requireActivity())
-                    }
-
-                    is NetworkState.Success -> {
-                        showToast(Const.SIGNUP_SUCCESS_WITH_PHONE)
-                        MySharedPreferences.setUserPhone("0")
-                        navigate(OtpFragmentDirections.actionOtpFragmentToLogoutFragment())
-                        ProgressLoading.dismiss()
-                    }
-
-                    is NetworkState.Failure -> {
-                        showToast(it.exception.message)
-                        ProgressLoading.dismiss()
-
-                    }
-
-                    else -> {}
-                }
-            }
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
