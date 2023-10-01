@@ -15,6 +15,6 @@ class Const {
         const val CHECK_EMAIL = "Check your email address"
          const val GOOGLE_ACCOUNT_REQUEST = 10
         const val DEFAULT_WEB_CLIENT_ID =
-            "301211341822-if3ra09a1upimea834vq73qu4gjfl2nl.apps.googleusercontent.com"
+           " DEFAULT_WEB_CLIENT_ID"
     }
 }
