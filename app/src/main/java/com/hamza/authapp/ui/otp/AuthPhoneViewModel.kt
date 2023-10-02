@@ -92,7 +92,7 @@ class AuthPhoneViewModel @Inject constructor(private val auth: FirebaseAuth) : V
                 if (task.isSuccessful) {
                     _isVerificationInProgress.value =
                         Resources.Success(false, "signInWithCredential success: ${task.result}")
-                    val user = task.result?.user
+
                 } else {
                     _isVerificationInProgress.value =
                         Resources.Failed("signInWithCredential failure: ${task.exception?.message}")
