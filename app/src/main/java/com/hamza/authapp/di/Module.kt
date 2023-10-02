@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.hamza.authapp.repo.AuthRepo
 import com.hamza.authapp.repo.AuthRepoImpl
 import com.hamza.authapp.utils.Const
- import com.hamza.authapp.utils.Const.Companion.DEFAULT_WEB_CLIENT_ID
+import com.hamza.authapp.utils.Const.Companion.DEFAULT_WEB_CLIENT_ID
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,8 +38,6 @@ class Module {
     }
 
 
-
-
     @Singleton
     @Provides
     fun provideGoogleSignInOptions(): GoogleSignInOptions {
@@ -50,6 +48,7 @@ class Module {
 
     }
 
+
     @Singleton
     @Provides
     fun provideGoogleSignInClient(
@@ -58,6 +57,20 @@ class Module {
     ): GoogleSignInClient {
         return GoogleSignIn.getClient(context, googleSignInOptions)
     }
+
+    @Singleton
+    @Provides
+    fun provideSignInRequest() = BeginSignInRequest.builder()
+        .setGoogleIdTokenRequestOptions(
+            BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                .setSupported(true)
+                // Your server's client ID, not your Android client ID.
+                .setServerClientId(Const.DEFAULT_WEB_CLIENT_ID)
+                // Only show accounts previously used to sign in.
+                .setFilterByAuthorizedAccounts(true)
+                .build()
+        ).setAutoSelectEnabled(true)
+        .build()
 
     @Provides
     fun ProvideAuthRepository(impl: AuthRepoImpl): AuthRepo = impl

@@ -42,7 +42,7 @@ class LogoutFragment : BaseFragment() {
 
         actions()
         showToast(viewModel.currentUser?.email)
-
+        binding.usrname.text = viewModel.currentUser?.phoneNumber.toString()
 
     }
 

@@ -26,6 +26,7 @@
     <string name="didn_t_receive_the_otp">Didn\'t receive the otp?</string>
     <string name="resend_otp">RESEND OTP</string>
     <string name="otp_sent">OTP Sent</string>
-
+    <string name="try_again">Try again</string>
+    <string name="verification_success">Verification success </string>
 
 </resources>

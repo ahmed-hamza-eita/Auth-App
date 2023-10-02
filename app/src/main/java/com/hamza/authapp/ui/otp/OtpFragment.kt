@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -12,10 +16,13 @@ import com.hamza.authapp.R
 import com.hamza.authapp.databinding.OtpFragmentBinding
 import com.hamza.authapp.utils.BaseFragment
 import com.hamza.authapp.utils.ProgressLoading
+import com.hamza.authapp.utils.Resources
 import com.hamza.itiproject.utils.showToast
 import com.hamza.itiproject.utils.visibilityGone
 import com.hamza.itiproject.utils.visibilityVisible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -27,6 +34,7 @@ class OtpFragment : BaseFragment() {
     var mobileNumber = "0"
     var verificationId = "0"
 
+    private val viewModel: AuthPhoneViewModel by viewModels()
 
     @Inject
     lateinit var auth: FirebaseAuth
@@ -46,7 +54,35 @@ class OtpFragment : BaseFragment() {
         verificationId = OtpFragmentArgs.fromBundle(requireArguments()).verificationId
         showToast("Your mobile number is $mobileNumber")
         actions()
+        observer()
 
+    }
+
+    private fun observer() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isVerificationInProgress.collect() {
+                    when (it) {
+                        is Resources.Loading -> {
+                            ProgressLoading.show(requireActivity())
+                        }
+
+                        is Resources.Success -> {
+                            ProgressLoading.dismiss()
+                            showToast(getString(R.string.verification_success) )
+                            navigate(OtpFragmentDirections.actionOtpFragmentToLogoutFragment())
+                        }
+
+                        is Resources.Failed -> {
+                            ProgressLoading.dismiss()
+                            showToast(it.message.toString())
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
     }
 
 
@@ -63,36 +99,7 @@ class OtpFragment : BaseFragment() {
     }
 
     private fun resentOtp() {
-        val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
 
-            }
-
-            override fun onVerificationFailed(e: FirebaseException) {
-
-                e.printStackTrace()
-
-                showToast(e.message)
-            }
-
-            override fun onCodeSent(
-                newVerificationId: String,
-                forceResendingToken: PhoneAuthProvider.ForceResendingToken
-            ) {
-                verificationId = newVerificationId
-                ProgressLoading.dismiss()
-                binding.btnConfirm.visibilityVisible()
-                showToast(getString(R.string.otp_sent))
-            }
-        }
-
-
-        ProgressLoading.show(requireActivity())
-        binding.btnConfirm.visibilityGone()
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            "+2$mobileNumber", 60L, TimeUnit.SECONDS,
-            requireActivity(), callbacks
-        )
     }
 
 
@@ -101,24 +108,7 @@ class OtpFragment : BaseFragment() {
         if (otpCode.isEmpty()) {
             binding.edtOtpCode.error = getString(R.string.requried)
         } else {
-            if (verificationId != null) {
-                ProgressLoading.show(requireActivity())
-                binding.btnConfirm.visibilityGone()
-                val credential = PhoneAuthProvider.getCredential(verificationId, otpCode)
-                FirebaseAuth.getInstance().signInWithCredential(credential)
-                    .addOnCompleteListener { task ->
-                        ProgressLoading.dismiss()
-                        binding.btnConfirm.visibilityVisible()
-                        if (task.isSuccessful) {
-                            navigate(OtpFragmentDirections.actionOtpFragmentToLogoutFragment())
-                        } else {
-
-                            showToast(getString(R.string.invalid_otp))
-                        }
-                    }
-
-
-            }
+            viewModel.signInWithVerificationCode(verificationId, otpCode)
 
         }
     }
