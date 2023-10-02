@@ -1,33 +1,22 @@
-package com.hamza.authapp.ui.signup;
+package com.hamza.authapp.ui.otp;
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.hamza.authapp.R
 import com.hamza.authapp.databinding.AuthWithPhoneFragmentBinding
-import com.hamza.authapp.ui.AuthViewModel
-import com.hamza.authapp.ui.login.LoginFragmentDirections
 import com.hamza.authapp.utils.BaseFragment
-import com.hamza.authapp.utils.Const
-import com.hamza.authapp.utils.MySharedPreferences
-import com.hamza.authapp.utils.NetworkState
 import com.hamza.authapp.utils.ProgressLoading
 import com.hamza.itiproject.utils.showToast
 import com.hamza.itiproject.utils.visibilityGone
 import com.hamza.itiproject.utils.visibilityVisible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import java.util.concurrent.TimeUnit
-import java.util.regex.Matcher
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -102,8 +91,6 @@ class AuthWithPhoneFragment : BaseFragment() {
                 )
             }
         }
-
-
         ProgressLoading.show(requireActivity())
         binding.btnConfirm.visibilityGone()
         PhoneAuthProvider.getInstance().verifyPhoneNumber(

@@ -82,15 +82,12 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_signupFragment_to_authWithPhoneFragment"
-            app:destination="@id/authWithPhoneFragment" />
-        <action
             android:id="@+id/action_signupFragment_to_logoutFragment"
             app:destination="@id/logoutFragment" />
     </fragment>
     <fragment
         android:id="@+id/authWithPhoneFragment"
-        android:name="com.hamza.authapp.ui.signup.AuthWithPhoneFragment"
+        android:name="com.hamza.authapp.ui.otp.AuthWithPhoneFragment"
         android:label="AuthWithPhoneFragment"
         tools:layout="@layout/auth_with_phone_fragment" >
         <action
@@ -99,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/otpFragment"
-        android:name="com.hamza.authapp.ui.signup.OtpFragment"
+        android:name="com.hamza.authapp.ui.otp.OtpFragment"
         android:label="OtpFragment"
         tools:layout="@layout/otp_fragment" >
         <argument
